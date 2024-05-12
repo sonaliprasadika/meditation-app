@@ -1,3 +1,6 @@
+"""
+   This module responsible for all resources and route mapping
+"""
 from flask import Blueprint
 from flask_restful import Api
 from resources.meditation import SongCollectionResource, SongResource
@@ -8,4 +11,4 @@ api = Api(api_bp)
 
 # Add resources to the API
 api.add_resource(SongCollectionResource, '/meditation')
-api.add_resource(SongResource, '/meditation/<string:song_id>')  # Ensure proper variable type is defined
+api.add_resource(SongResource, '/meditation/<string:song_id>')

@@ -1,3 +1,6 @@
+"""
+   This module responsible for having server and other configuration details
+"""
 SERVER_ADDRESS = 'http://127.0.0.1:5000'
 CONTENT_TYPE= "application/json"
 MASON = "application/vnd.mason+json"

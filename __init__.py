@@ -1,3 +1,6 @@
+"""
+   This module responsible for all initial configurations
+"""
 import os
 from flask import Flask
 from flasgger import Swagger
@@ -16,7 +19,7 @@ if __name__ == '__main__':
     from api import api_bp
     # Load and parse the external YAML file for Swagger
     template_file_path = os.path.join(os.getcwd(), 'swagger.yml')
-    with open(template_file_path, 'r') as f:
+    with open(template_file_path, 'r', encoding='utf-8') as f:
         template = yaml.safe_load(f.read())
 
     swagger_config = {
