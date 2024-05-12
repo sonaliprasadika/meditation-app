@@ -1,0 +1,216 @@
+swagger: '2.0'
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: "1.0.0"
+servers:
+  - url: http://localhost:5000/api/v1
+paths:
+  /api/workout:
+    get:
+      tags:
+        - Workouts Collection
+      summary: Get all workouts
+      responses:
+        200:
+          description: An array of workout objects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Workout'
+          examples:
+            application/json:
+              "@namespaces":
+                custWorkoutPlaylistGen:
+                  name: "/workout_link_relation"
+              "@controls":
+                item:
+                  method: GET
+                  title: Get Workout by workout_id
+                  href: "/api/workout/43"
+                profile:
+                  href: "/profile"
+                self:
+                  title: Self
+                  href: "/api/workout/"
+              workout_list:
+                - workout_id: 1
+                  workout_name: Cardio Blast
+                  duration: 5.0
+                  workout_intensity: slow
+                  equipment: treadmill
+                  workout_type: Cardio
+                - workout_id: 5
+                  workout_name: running
+                  duration: 6.0
+                  workout_intensity: mild
+                  equipment: text
+                  workout_type: text
+                - workout_id: 35
+                  workout_name: walking
+                  duration: 1.5
+                  workout_intensity: mild
+                  equipment: text
+                  workout_type: text
+                - workout_id: 36
+                  workout_name: walking
+                  duration: 1.5
+                  workout_intensity: mild
+                  equipment: text
+                  workout_type: text
+                - workout_id: 37
+                  workout_name: walking
+                  duration: 1.5
+                  workout_intensity: mild
+                  equipment: text
+                  workout_type: text
+                - workout_id: 38
+                  workout_name: dancing
+                  duration: 3.0
+                  workout_intensity: mild
+                  equipment: threadmill
+                  workout_type: Cardio
+                - workout_id: 39
+                  workout_name: walking
+                  duration: 1.5
+                  workout_intensity: mild
+                  equipment: text
+                  workout_type: text
+                - workout_id: 41
+                  workout_name: Roll Ball v2
+                  duration: 6.0
+                  workout_intensity: fast
+                  equipment: Yoga Mat
+                  workout_type: Flexibility
+                - workout_id: 42
+                  workout_name: Roll Ball
+                  duration: 6.0
+                  workout_intensity: fast
+                  equipment: Yoga Mat
+                  workout_type: Flexibility
+                - workout_id: 43
+                  workout_name: Roll Ball
+                  duration: 6.0
+                  workout_intensity: fast
+                  equipment: Yoga Mat
+                  workout_type: Flexibility
+        400:
+          description: Invalid input data
+      security:
+        - BearerAuth: []
+        - X-API-Key: []
+  /api/workout/{workout_id}:
+    get:
+      tags:
+        - Workout
+      summary: Get a single workout by ID
+      parameters:
+        - in: path
+          name: workout_id
+          required: true
+          schema:
+            type: integer
+          description: Unique identifier of the workout
+      responses:
+        200:
+          description: A workout object
+          schema:
+            $ref: '#/definitions/Workout'
+          examples:
+            application/json:
+              "@namespaces":
+                custWorkoutPlaylistGen:
+                  name: "/workout_link_relation"
+              "@controls":
+                collection:
+                  method: GET
+                  title: List All Workouts
+                  href: /api/workout
+                up:
+                  method: GET
+                  title: Get workout plans for the workout
+                  href: /api/workoutItem/38
+                item:
+                  method: GET
+                  title: Get Workout by workout_id
+                  href: /api/workout/38
+                edit:
+                  method: PUT
+                  title: Edit This Workout
+                  encoding: json
+                  schema:
+                    type: object
+                    required:
+                      - workout_name
+                      - duration
+                      - workout_intensity
+                      - equipment
+                      - workout_type
+                    properties:
+                      workout_name:
+                        description: Name of the workout
+                        type: string
+                      duration:
+                        description: Duration of the workout
+                        type: number
+                      workout_intensity:
+                        description: Intensity of the workout
+                        type: string
+                      equipment:
+                        description: Equipment needed for the workout
+                        type: string
+                      workout_type:
+                        description: Type of the workout
+                        type: string
+                  href: /api/workout/38
+                delete:
+                  method: DELETE
+                  title: Delete This Workout
+                  href: /api/workout/38
+                profile:
+                  href: /profile
+              workout_id: 38
+              workout_name: dancing
+              duration: 3.0
+              workout_intensity: mild
+              equipment: threadmill
+              workout_type: Cardio
+        400:
+          description: Invalid input data
+        404:
+          description: Workout not found
+      security:
+        - BearerAuth: []
+        - X-API-Key: []
+  User:
+    type: object
+    required: 
+      - email
+      - password
+      - height
+      - weight
+      - user_type
+    properties:
+      email:
+        type: string
+        format: email
+        description: The user's email address.
+        example: "user@example.com"
+      password:
+        type: string
+        format: password
+        description: The user's password.
+        example: "Welcome@123"
+      height:
+        type: float
+        description: The user's height in centimeters.
+        example: 1.75
+      weight:
+        type: float
+        description: The user's weight in kilograms.
+        example: 75.0
+      user_type:
+        type: string
+        enum: [admin, user]
+        description: The type of user (admin or regular user).
+        example: "admin"
