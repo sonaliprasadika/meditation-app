@@ -71,19 +71,6 @@ python __init__.py
 
 - [x]  Setup and Run the [Custom Workout Generator App](https://github.com/NirashaThennakoon/CustomWorkoutPlaylistGenerator.git),  follwoing the instructuions given there.
 
-
-## Running Tests
-
-To run all test cases 
-
-```bash
-Run “pytest” cmd in project folder
-```
-
-To run specific test class 
-```bash
-– Run pytest <path to test folder>/<testclassname>.py
-```
 ## link to the API documentation
 
 ```bash
