@@ -1,12 +1,11 @@
 import os
 from flask import Flask
-from flask_caching import Cache
 from flasgger import Swagger
 import yaml
+from cache import cache
 
 app = Flask(__name__)
-# Initialize cache
-cache = Cache()
+
 # Configure cache
 app.config["CACHE_TYPE"] = "FileSystemCache"
 app.config["CACHE_DIR"] = "./cache"
