@@ -84,7 +84,7 @@ class MeditationBuilder(MasonBuilder):
         """
         self.add_control(
             "item",
-            href=f"/song/{song_id}",
+            href=f"/meditation/{song_id}",
             method="GET",
             title="Get Song by song_id"
         )
@@ -97,7 +97,7 @@ def create_error_response(status_code, title, message=None):
     body.add_error(title, message if message else "")
     return Response(json.dumps(body), status_code, mimetype=MASON)
 
-class MeditationResource(Resource):
+class SongCollectionResource(Resource):
     """
         This resource is for calling GET all songs endpoint and returns them in a list format after filtering by song genre.
 

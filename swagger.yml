@@ -9,7 +9,7 @@ paths:
   /api/meditation:
     get:
       tags:
-        - Songs by Genre
+        - Songs Collection
       summary: Get all songs by Genre
       responses:
         200:
