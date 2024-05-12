@@ -4,213 +4,170 @@ info:
   description: API description in Markdown.
   version: "1.0.0"
 servers:
-  - url: http://localhost:5000/api/v1
+  - url: http://localhost:3000/api/v1
 paths:
-  /api/workout:
+  /api/meditation:
     get:
       tags:
-        - Workouts Collection
-      summary: Get all workouts
+        - Songs by Genre
+      summary: Get all songs by Genre
       responses:
         200:
-          description: An array of workout objects
+          description: An array of songs
           schema:
             type: array
             items:
-              $ref: '#/definitions/Workout'
+              $ref: '#/definitions/Song'
           examples:
             application/json:
               "@namespaces":
-                custWorkoutPlaylistGen:
-                  name: "/workout_link_relation"
-              "@controls":
-                item:
-                  method: GET
-                  title: Get Workout by workout_id
-                  href: "/api/workout/43"
-                profile:
-                  href: "/profile"
-                self:
-                  title: Self
-                  href: "/api/workout/"
-              workout_list:
-                - workout_id: 1
-                  workout_name: Cardio Blast
-                  duration: 5.0
-                  workout_intensity: slow
-                  equipment: treadmill
-                  workout_type: Cardio
-                - workout_id: 5
-                  workout_name: running
-                  duration: 6.0
-                  workout_intensity: mild
-                  equipment: text
-                  workout_type: text
-                - workout_id: 35
-                  workout_name: walking
-                  duration: 1.5
-                  workout_intensity: mild
-                  equipment: text
-                  workout_type: text
-                - workout_id: 36
-                  workout_name: walking
-                  duration: 1.5
-                  workout_intensity: mild
-                  equipment: text
-                  workout_type: text
-                - workout_id: 37
-                  workout_name: walking
-                  duration: 1.5
-                  workout_intensity: mild
-                  equipment: text
-                  workout_type: text
-                - workout_id: 38
-                  workout_name: dancing
-                  duration: 3.0
-                  workout_intensity: mild
-                  equipment: threadmill
-                  workout_type: Cardio
-                - workout_id: 39
-                  workout_name: walking
-                  duration: 1.5
-                  workout_intensity: mild
-                  equipment: text
-                  workout_type: text
-                - workout_id: 41
-                  workout_name: Roll Ball v2
-                  duration: 6.0
-                  workout_intensity: fast
-                  equipment: Yoga Mat
-                  workout_type: Flexibility
-                - workout_id: 42
-                  workout_name: Roll Ball
-                  duration: 6.0
-                  workout_intensity: fast
-                  equipment: Yoga Mat
-                  workout_type: Flexibility
-                - workout_id: 43
-                  workout_name: Roll Ball
-                  duration: 6.0
-                  workout_intensity: fast
-                  equipment: Yoga Mat
-                  workout_type: Flexibility
+                meditationService:
+                  name: "/meditation_link_relation"
+              songs:
+                - "@controls":
+                    item:
+                      href: "/song/7"
+                      method: "GET"
+                      title: "Get Song by song_id"
+                  song_artist: "lilMozart"
+                  song_duration: 3.52
+                  song_genre: "Classical"
+                  song_id: 7
+                  song_name: "Classic4"
+                - "@controls":
+                    item:
+                      href: "/song/9"
+                      method: "GET"
+                      title: "Get Song by song_id"
+                  song_artist: "lilMozart"
+                  song_duration: 3.52
+                  song_genre: "Classical"
+                  song_id: 9
+                  song_name: "Classic5"
+                - "@controls":
+                    item:
+                      href: "/song/10"
+                      method: "GET"
+                      title: "Get Song by song_id"
+                  song_artist: "lilMozart"
+                  song_duration: 3.52
+                  song_genre: "Classical"
+                  song_id: 10
+                  song_name: "Classic7"
         400:
-          description: Invalid input data
+          description: Empty request body
+        401:
+          description: API key is missing
+        415:
+          description: Unsupported Media Type, This service accept JSON input.
+        404:
+          description: Failed to retrieve songs
+        500:
+          description: Internal Server Error
       security:
         - BearerAuth: []
         - X-API-Key: []
-  /api/workout/{workout_id}:
+  /api/song/{song_id}:
     get:
       tags:
-        - Workout
-      summary: Get a single workout by ID
+        - Song
+      summary: Get a single song by ID
       parameters:
         - in: path
-          name: workout_id
+          name: song_id
           required: true
           schema:
             type: integer
-          description: Unique identifier of the workout
+          description: Unique identifier of the song
       responses:
         200:
-          description: A workout object
+          description: A song object
           schema:
-            $ref: '#/definitions/Workout'
+            $ref: '#/definitions/Song'
           examples:
             application/json:
               "@namespaces":
                 custWorkoutPlaylistGen:
-                  name: "/workout_link_relation"
+                  name: "/song_link_relation"
               "@controls":
                 collection:
                   method: GET
-                  title: List All Workouts
-                  href: /api/workout
-                up:
-                  method: GET
-                  title: Get workout plans for the workout
-                  href: /api/workoutItem/38
-                item:
-                  method: GET
-                  title: Get Workout by workout_id
-                  href: /api/workout/38
+                  title: List All Songs
+                  href: /api/song
                 edit:
                   method: PUT
-                  title: Edit This Workout
+                  title: Edit This Song
                   encoding: json
                   schema:
                     type: object
                     required:
-                      - workout_name
-                      - duration
-                      - workout_intensity
-                      - equipment
-                      - workout_type
+                      - song_name
+                      - song_artist
+                      - song_genre
+                      - song_duration
                     properties:
-                      workout_name:
-                        description: Name of the workout
+                      song_name:
+                        description: Name of the song
                         type: string
-                      duration:
-                        description: Duration of the workout
+                      song_artist:
+                        description: Artist of the song
+                        type: string
+                      song_genre:
+                        description: Genre of the song
+                        type: string
+                      song_duration:
+                        description: Duration of the song
                         type: number
-                      workout_intensity:
-                        description: Intensity of the workout
-                        type: string
-                      equipment:
-                        description: Equipment needed for the workout
-                        type: string
-                      workout_type:
-                        description: Type of the workout
-                        type: string
-                  href: /api/workout/38
+                  href: /api/song/4
                 delete:
                   method: DELETE
-                  title: Delete This Workout
-                  href: /api/workout/38
+                  title: Delete This Song
+                  href: /api/song/4
                 profile:
                   href: /profile
-              workout_id: 38
-              workout_name: dancing
-              duration: 3.0
-              workout_intensity: mild
-              equipment: threadmill
-              workout_type: Cardio
-        400:
-          description: Invalid input data
+              song_id: 4
+              song_name: Pop5
+              song_artist: lilMozart
+              song_genre: Pop
+              song_duration: 4.52
         404:
-          description: Workout not found
+          description: Song not found
       security:
         - BearerAuth: []
         - X-API-Key: []
-  User:
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: Enter your bearer token in the format **Bearer <token>**
+  X-API-Key:
+    type: apiKey
+    in: header
+    name: X-API-Key
+    description: "Enter your API key in the X-API-Key header"
+definitions:
+  Song:
     type: object
-    required: 
-      - email
-      - password
-      - height
-      - weight
-      - user_type
+    required:
+      - song_name
+      - song_artist
+      - song_genre
+      - song_duration
     properties:
-      email:
+      song_name:
         type: string
-        format: email
-        description: The user's email address.
-        example: "user@example.com"
-      password:
+        description: Name of the song
+        example: "Summer Nights"
+      song_artist:
         type: string
-        format: password
-        description: The user's password.
-        example: "Welcome@123"
-      height:
+        description: Artist of the song
+        example: "John Doe"
+      song_genre:
+        type: string
+        description: Genre of the song
+        example: "Pop"
+      song_duration:
         type: float
-        description: The user's height in centimeters.
-        example: 1.75
-      weight:
-        type: float
-        description: The user's weight in kilograms.
-        example: 75.0
-      user_type:
-        type: string
-        enum: [admin, user]
-        description: The type of user (admin or regular user).
-        example: "admin"
+        description: Duration of the song in minutes
+        example: 3.5
